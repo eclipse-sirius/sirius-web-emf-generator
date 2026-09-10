@@ -1,0 +1,3 @@
+= sirius-web-emf-generator
+
+Used to generate EMF code for Sirius Web based applications.
