@@ -33,6 +33,8 @@ public class GenmodelGenerationService {
     private final ProjectUriMapper projectUriMapper = new ProjectUriMapper();
     private final EditProjectLocationResolver editProjectLocationResolver = new EditProjectLocationResolver();
     private final GeneratorFormattingConfigurer formattingConfigurer = new GeneratorFormattingConfigurer();
+    private final GeneratedModelProjectCleaner modelProjectCleaner = new GeneratedModelProjectCleaner();
+    private final GeneratedEditProjectCleaner editProjectCleaner = new GeneratedEditProjectCleaner();
 
     public void generateAll(List<GenmodelWrapper> genmodels, boolean format) {
         for (GenmodelWrapper genModel : genmodels) {
@@ -66,8 +68,14 @@ public class GenmodelGenerationService {
         }
         System.out.println("Generating MODEL for " + resource.getURI());
         generator.generate(genModel, GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE, new BasicMonitor.Printing(System.out));
+        if (genModelWrapper.projectLocation() != null) {
+            this.modelProjectCleaner.cleanup(genModelWrapper.projectLocation().projectRoot());
+        }
         System.out.println("Generating EDIT for " + resource.getURI());
         generator.generate(genModel, GenBaseGeneratorAdapter.EDIT_PROJECT_TYPE, new BasicMonitor.Printing(System.out));
+        if (editProject != null) {
+            this.editProjectCleaner.cleanup(editProject.projectRoot());
+        }
     }
 
     private GenModel findGenModel(Resource resource) {
