@@ -16,8 +16,8 @@ package org.eclipse.sirius.web.emf.generator.internal;
 import java.nio.file.Path;
 
 /**
- * Carries the repository root and file pattern used to discover GenModels.
+ * Carries the repository root, GenModel discovery pattern, and formatting choice.
  * @author lfasani
  */
-public record GeneratorArguments(Path repositoryRoot, String genmodelPattern) {
+public record GeneratorArguments(Path repositoryRoot, String genmodelPattern, boolean format) {
 }
