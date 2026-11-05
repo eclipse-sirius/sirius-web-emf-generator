@@ -1,0 +1,14 @@
+= emf-generator-resources
+
+== Goal
+
+This project is used to store some common settings used by our Java projects.
+As such, it contains our Checkstyle configuration, our formatter settings etc.
+
+The `emf-generator` Maven module uses this Checkstyle configuration during the
+`validate` phase for production and test Java sources. The standard `mvn clean
+verify` build and CI therefore enforce the same rules.
+
+== Dependencies
+
+None, this is not a Java project

@@ -1,0 +1,13 @@
+= Changelog
+
+== v2026.10.0
+
+=== Dependency update
+
+=== New features
+
+- https://github.com/eclipse-sirius/sirius-web-emf-generator/issues/1[#1] Add EMFGenerator application
+
+=== Improvements
+
+=== Bug fixes
