@@ -57,13 +57,14 @@ public class EMFGenerator {
         List<GenmodelWrapper> loadedGenmodels = this.genmodelLoader.loadAll(resourceSet, arguments.repositoryRoot(), genmodels);
         this.printSummary(arguments, genmodels);
         System.out.printf("Genmodels loaded: %d%n", loadedGenmodels.size());
-        this.generationService.generateAll(this.genmodelValidator.validateAll(resourceSet, loadedGenmodels));
+        this.generationService.generateAll(this.genmodelValidator.validateAll(resourceSet, loadedGenmodels), arguments.format());
     }
 
     private void printSummary(GeneratorArguments arguments, List<Path> genmodels) {
         System.out.printf("Repository root:  %s%n", arguments.repositoryRoot());
         System.out.printf("Genmodel filter:  %s%n", arguments.genmodelPattern());
         System.out.printf("Genmodels found:  %d%n", genmodels.size());
+        System.out.printf("Formatting:       %s%n", arguments.format());
         genmodels.forEach(System.out::println);
     }
 }

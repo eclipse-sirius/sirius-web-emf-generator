@@ -32,14 +32,15 @@ import org.eclipse.emf.ecore.resource.Resource;
 public class GenmodelGenerationService {
     private final ProjectUriMapper projectUriMapper = new ProjectUriMapper();
     private final EditProjectLocationResolver editProjectLocationResolver = new EditProjectLocationResolver();
+    private final GeneratorFormattingConfigurer formattingConfigurer = new GeneratorFormattingConfigurer();
 
-    public void generateAll(List<GenmodelWrapper> genmodels) {
+    public void generateAll(List<GenmodelWrapper> genmodels, boolean format) {
         for (GenmodelWrapper genModel : genmodels) {
-            this.generate(genModel);
+            this.generate(genModel, format);
         }
     }
 
-    private void generate(GenmodelWrapper genModelWrapper) {
+    private void generate(GenmodelWrapper genModelWrapper, boolean format) {
         Resource resource = genModelWrapper.resource();
         GenModel genModel = this.findGenModel(resource);
         if (genModel == null) {
@@ -52,10 +53,13 @@ public class GenmodelGenerationService {
         genModel.reconcile();
         genModel.setCanGenerate(true);
         genModel.setDynamicTemplates(false);
-        genModel.setCodeFormatting(false);
-        genModel.setCommentFormatting(false);
+        genModel.setCodeFormatting(format);
+        genModel.setCommentFormatting(format);
         genModel.setCleanup(true);
         generator.setInput(genModel);
+
+        this.formattingConfigurer.configure(generator, resource.getResourceSet(), genModelWrapper.projectLocation(), format);
+
         EditProjectLocation editProject = this.editProjectLocationResolver.resolve(genModelWrapper.projectLocation(), genModel);
         if (editProject != null && Files.isDirectory(editProject.projectRoot())) {
             this.projectUriMapper.registerProject(resource.getResourceSet(), editProject.projectName(), editProject.projectRoot());
