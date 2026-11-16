@@ -20,7 +20,6 @@ import org.eclipse.emf.codegen.ecore.generator.Generator;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
 import org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter;
-import org.eclipse.emf.codegen.ecore.genmodel.generator.GenModelGeneratorAdapterFactory;
 import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -52,7 +51,7 @@ public class GenmodelGenerationService {
         }
         Generator generator = new Generator();
         generator.getAdapterFactoryDescriptorRegistry()
-                .addDescriptor(GenModelPackage.eNS_URI, GenModelGeneratorAdapterFactory.DESCRIPTOR);
+                .addDescriptor(GenModelPackage.eNS_URI, SvgGenModelGeneratorAdapterFactory::new);
         genModel.reconcile();
         genModel.setCanGenerate(true);
         genModel.setDynamicTemplates(false);
