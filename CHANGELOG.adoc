@@ -1,6 +1,6 @@
 = Changelog
 
-== v2026.11.0
+== v2026.12.0
 
 === Dependency update
 
@@ -9,5 +9,7 @@
 - https://github.com/eclipse-sirius/sirius-web-emf-generator/issues/1[#1] Add EMFGenerator application
 
 === Improvements
+
+- https://github.com/eclipse-sirius/sirius-web-emf-generator/issues/1[#1] Generate item provider specializations and wire adapter factories to use SVG icons
 
 === Bug fixes
